@@ -1,5 +1,7 @@
 # coding:utf-8
 import urllib2
+
+import time
 from bs4 import BeautifulSoup
 import sys
 import pymongo
@@ -12,7 +14,7 @@ tdb = connection.o2o
 post_info = tdb.good
 
 
-def find_data(tmp_url, tmp_city):
+def find_data(tmp_url, tmp_city, tmp_time):
     for pageNum in range(1, 10):
 
         page_num_str = str(pageNum)
@@ -36,19 +38,24 @@ def find_data(tmp_url, tmp_city):
             date = td_list[3]
             date_str = date.string
 
-            print "{\"species\":\"%s\", \"price\":\"%s\",\"market\":\"%s\",\"date\":\"%s\"}" % (
-                species_str, price_str, market_str, date_str)
+            if date_str == tmp_time:
 
-            data = {"city": tmp_city, "species": species_str, "price": float(price_str), "market": market_str,
-                    "date": date_str}
+                print "{\"species\":\"%s\", \"price\":\"%s\",\"market\":\"%s\",\"date\":\"%s\"}" % (
+                    species_str, price_str, market_str, date_str)
 
-            post_info.save(data)
+                data = {"city": tmp_city, "species": species_str, "price": float(price_str), "market": market_str,
+                        "date": date_str}
+
+                post_info.save(data)
     return
 
 
 url = "http://nc.mofcom.gov.cn/channel/gxdj/jghq/sc_list.shtml"
 page = urllib2.urlopen(url)
 soup = BeautifulSoup(page, "html.parser")
+
+now_time = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+print now_time
 
 div_soup = soup.find('div', {'class': 'z_map'})
 div_list = div_soup.findAll('div', {'class': 'k_txtBoxP_01'})
@@ -58,4 +65,4 @@ for div in div_list:
     a_list = div.findAll('a')
     print "city:%s" % city_str
     for a in a_list:
-        find_data(a['href'], city_str)
+        find_data(a['href'], city_str, now_time)
