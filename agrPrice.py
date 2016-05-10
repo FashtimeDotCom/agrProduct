@@ -15,7 +15,7 @@ post_info = tdb.good
 
 
 def find_data(tmp_url, tmp_city, tmp_time):
-    for pageNum in range(1, 10):
+    for pageNum in range(1, 30):
 
         page_num_str = str(pageNum)
         print "Getting data for Page " + page_num_str
@@ -38,15 +38,15 @@ def find_data(tmp_url, tmp_city, tmp_time):
             date = td_list[3]
             date_str = date.string
 
-            if date_str == tmp_time:
+            #if date_str == tmp_time:
 
-                print "{\"species\":\"%s\", \"price\":\"%s\",\"market\":\"%s\",\"date\":\"%s\"}" % (
-                    species_str, price_str, market_str, date_str)
+            print "{\"species\":\"%s\", \"price\":\"%s\",\"market\":\"%s\",\"date\":\"%s\"}" % (
+                species_str, price_str, market_str, date_str)
 
-                data = {"city": tmp_city, "species": species_str, "price": float(price_str), "market": market_str,
-                        "date": date_str}
+            data = {"city": tmp_city, "species": species_str, "price": float(price_str), "market": market_str,
+                    "date": date_str}
 
-                post_info.save(data)
+            post_info.save(data)
     return
 
 
@@ -64,5 +64,6 @@ for div in div_list:
     city_str = city.string[:len(city.string) - 4]
     a_list = div.findAll('a')
     print "city:%s" % city_str
-    for a in a_list:
-        find_data(a['href'], city_str, now_time)
+    if city_str == "上海":
+        for a in a_list:
+            find_data(a['href'], city_str, now_time)
