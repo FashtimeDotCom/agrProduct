@@ -14,8 +14,8 @@ tdb = connection.o2o
 post_info = tdb.good
 
 
-def find_data(tmp_url, tmp_city, tmp_time):
-    for pageNum in range(1, 80):
+def find_data(tmp_url, tmp_city, tmp_num):
+    for pageNum in range(1, tmp_num):
 
         page_num_str = str(pageNum)
         print "Getting data for Page " + page_num_str
@@ -50,20 +50,24 @@ def find_data(tmp_url, tmp_city, tmp_time):
     return
 
 
-url = "http://nc.mofcom.gov.cn/channel/gxdj/jghq/sc_list.shtml"
-page = urllib2.urlopen(url)
-soup = BeautifulSoup(page, "html.parser")
+find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20969', "无锡", 247)
+find_data('/channel/gxdj/jghq/jg_detail.shtml?id=2576431', "无锡", 11)
 
-now_time = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-print now_time
-
-div_soup = soup.find('div', {'class': 'z_map'})
-div_list = div_soup.findAll('div', {'class': 'k_txtBoxP_01'})
-for div in div_list:
-    city = div.find('h4')
-    city_str = city.string[:len(city.string) - 4]
-    a_list = div.findAll('a')
-    print "city:%s" % city_str
-    if city_str == "上海":
-        for a in a_list:
-            find_data(a['href'], city_str, now_time)
+# url = "http://nc.mofcom.gov.cn/channel/gxdj/jghq/sc_list.shtml"
+# page = urllib2.urlopen(url)
+# soup = BeautifulSoup(page, "html.parser")
+#
+# now_time = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+# print now_time
+#
+# div_soup = soup.find('div', {'class': 'z_map'})
+# div_list = div_soup.findAll('div', {'class': 'k_txtBoxP_01'})
+# for div in div_list:
+#     city = div.find('h4')
+#     city_str = city.string[:len(city.string) - 4]
+#     a_list = div.findAll('a')
+#     print "city:%s" % city_str
+#     if city_str == "上海":
+#         for a in a_list:
+#             print a['href']
+#             # find_data(a['href'], city_str, now_time)
