@@ -50,8 +50,9 @@ def find_data(tmp_url, tmp_city, tmp_num):
     return
 
 
-find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20969', "无锡", 247)
-find_data('/channel/gxdj/jghq/jg_detail.shtml?id=2576431', "无锡", 11)
+find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20547', "上海", 100)
+find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20542', "上海", 50)
+find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20968', "江苏", 50)
 
 # url = "http://nc.mofcom.gov.cn/channel/gxdj/jghq/sc_list.shtml"
 # page = urllib2.urlopen(url)
