@@ -43,15 +43,15 @@ def find_data(tmp_url, tmp_city, tmp_num):
             print "{\"species\":\"%s\", \"price\":\"%s\",\"market\":\"%s\",\"date\":\"%s\"}" % (
                 species_str, price_str, market_str, date_str)
 
-            data = {"city": tmp_city + "市", "species": species_str, "price": float(price_str), "market": market_str,
+            data = {"city": tmp_city + "省", "species": species_str, "price": float(price_str), "market": market_str,
                     "date": date_str}
 
             post_info.save(data)
     return
 
 
-find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20547', "上海", 100)
-find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20542', "上海", 50)
+# find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20547', "上海", 5)
+# find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20542', "上海", 50)
 find_data('/channel/gxdj/jghq/jg_detail.shtml?id=20968', "江苏", 50)
 
 # url = "http://nc.mofcom.gov.cn/channel/gxdj/jghq/sc_list.shtml"
